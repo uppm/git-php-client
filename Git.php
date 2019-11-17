@@ -83,10 +83,8 @@ class Git {
 
     private function exec($cmd) : void {
         $src = "";
-        if ($this->noOutput) {
+        if ($this->noOutput)
             $src = @ob_get_contents();
-            @ob_clean();
-        }
 
         $disablefunc = [];
         $disablefunc = explode(",", str_replace(" ", "", @ini_get("disable_functions")));
@@ -111,7 +109,10 @@ class Git {
         } else
             trigger_error("Cannot execute the command due to server restrictions.", E_USER_WARNING);
 
-        echo $src;
+        if ($this->noOutput) {
+            @ob_clean();
+            echo $src;
+        }
     }
 
     public function setDirectRun(bool $directRun) : void {
