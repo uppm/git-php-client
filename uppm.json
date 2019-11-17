@@ -1,0 +1,12 @@
+{
+    "name": "git",
+    "version": "1.0",
+    "description": "Git client in PHP",
+    "author": "JulianFun123",
+    "keywords": [
+        "PHP",
+        "Git"
+    ],
+    "modules": {},
+    "namespaces": {}
+}
