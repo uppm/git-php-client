@@ -4,7 +4,7 @@ require "Git.php";
 use modules\git\Git;
 
 $git = new Git();
-$git->changeDirectory("test");
+$git->changeDirectory(".");
 $git->initIfNot();
 
 // $git->addRemote("origin", "git@github.com:interaapps/javahttprequest.git");
