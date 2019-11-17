@@ -9,6 +9,7 @@ class Git {
     private $gitBin = "git";
     private $remote;
     private $directRun = true;
+    private $noOutput = false;
 
     public function changeDirectory($directory) : void{
         $this->addCommand("cd $directory");
@@ -81,7 +82,12 @@ class Git {
     }
 
     private function exec($cmd) : void {
-        echo "---".$cmd;
+        $src = "";
+        if ($this->noOutput) {
+            $src = @ob_get_contents();
+            @ob_clean();
+        }
+
         $disablefunc = [];
         $disablefunc = explode(",", str_replace(" ", "", @ini_get("disable_functions")));
         if(is_callable("exec") && !in_array("exec", $disablefunc)) {
@@ -102,13 +108,18 @@ class Git {
                 }
             }
             pclose($h);
-        } else {
+        } else
             trigger_error("Cannot execute the command due to server restrictions.", E_USER_WARNING);
-        }
+
+        echo $src;
     }
 
-    public function setDirectRun(bool $directRun): void{
+    public function setDirectRun(bool $directRun) : void {
         $this->directRun = $directRun;
+    }
+
+    public function setNoOutput(bool $noOutput) : void {
+        $this->noOutput = $noOutput;
     }
 
 }
