@@ -83,7 +83,7 @@ class Git {
         $disablefunc = [];
         $disablefunc = explode(",", str_replace(" ", "", @ini_get("disable_functions")));
         if(is_callable("exec") && !in_array("exec", $disablefunc)) {
-            exec($cmd, $result);
+            exec($cmd);
         } elseif(is_callable("system") && !in_array("system", $disablefunc)) {
             system($cmd);
         } elseif(is_callable("passthru") && !in_array("passthru", $disablefunc)) {
