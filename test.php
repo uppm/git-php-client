@@ -4,6 +4,7 @@ require "Git.php";
 use modules\git\Git;
 
 $git = new Git();
+$git->setNoOutput(true);
 $git->changeDirectory(".");
 $git->initIfNot();
 
