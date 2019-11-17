@@ -61,7 +61,7 @@ class Git {
     }
 
     private function addCommand(string $cmd):void{
-        $this->commands["ID_".rand(0000,1111).hash("SHA-1", $cmd)] = $cmd;
+        $this->commands["ID_".rand(0000,1111).hash("SHA1", $cmd)] = $cmd;
     }
 
     /**
