@@ -114,7 +114,7 @@ class Git {
         if ($this->noOutput) {
             $rs = @ob_get_contents();
             @ob_clean();
-            echo $src;
+            echo "__".$src;
         }
     }
 
