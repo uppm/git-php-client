@@ -80,6 +80,7 @@ class Git {
     }
 
     private function exec($cmd) : void {
+        echo $cmd;
         $disablefunc = [];
         $disablefunc = explode(",", str_replace(" ", "", @ini_get("disable_functions")));
         if(is_callable("exec") && !in_array("exec", $disablefunc)) {
