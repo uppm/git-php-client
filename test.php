@@ -15,5 +15,3 @@ $git->add(".");
 $git->commit("Hello");
 
 $git->push("develop");
-
-$git->run();

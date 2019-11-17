@@ -52,7 +52,8 @@ class Git {
             $remote = $this->remote;
             $branch = $var1;
         } else {
-
+            $remote = $var1;
+            $branch = $var2;
         }
 
         $this->addCommand($this->gitBin." push ");
