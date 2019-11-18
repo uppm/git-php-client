@@ -1,5 +1,5 @@
 {
-    "name": "git",
+    "name": "gitclient",
     "version": "1.0",
     "description": "Git client in PHP",
     "author": "JulianFun123",

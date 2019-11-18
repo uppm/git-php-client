@@ -1,5 +1,5 @@
 <?php
-namespace modules\git;
+namespace modules\gitclient;
 
 
 class Git {
@@ -25,7 +25,7 @@ class Git {
     }
 
     public function commit($message) : void {
-        $this->addCommand($this->gitBin." commit -m \"".$message."\"");
+        $this->addCommand($this->gitBin." commit -m \"".escapeshellarg($message)."\"");
     }
 
     public function initIfNot() : void {
@@ -35,7 +35,7 @@ class Git {
     }
 
     public function add($what) : void {
-        $this->addCommand($this->gitBin." add $what");
+        $this->addCommand($this->gitBin." add ".escapeshellarg($what));
     }
 
     public function clearCommands() : void {
@@ -57,7 +57,23 @@ class Git {
             $branch = $var2;
         }
 
-        $this->addCommand($this->gitBin." push ");
+        $this->addCommand($this->gitBin." push ".escapeshellarg($remote)." ".escapeshellarg($branch));
+
+        if ($this->directRun) $this->run();
+    }
+
+    public function pull($var1, $var2 = null) : void {
+        $remote = "";
+        $branch = "master";
+        if ($var2 == null) {
+            $remote = $this->remote;
+            $branch = $var1;
+        } else {
+            $remote = $var1;
+            $branch = $var2;
+        }
+
+        $this->addCommand($this->gitBin." pull ".escapeshellarg($remote)." ".escapeshellarg($branch));
 
         if ($this->directRun) $this->run();
     }
@@ -81,6 +97,11 @@ class Git {
 
     }
 
+    public function runGit($cmd, $runInstantly=false){
+        $this->addCommand($this->gitBin." ".$cmd);
+        if ($runInstantly) $this->run();
+    }
+
     private function exec($cmd) : void {
         $src = "";
         if ($this->noOutput) {
@@ -91,7 +112,7 @@ class Git {
         $disablefunc = [];
         $disablefunc = explode(",", str_replace(" ", "", @ini_get("disable_functions")));
         if(is_callable("exec") && !in_array("exec", $disablefunc)) {
-            exec($cmd, $abc);
+            exec($cmd);
         } elseif(is_callable("system") && !in_array("system", $disablefunc)) {
             system($cmd);
         } elseif(is_callable("passthru") && !in_array("passthru", $disablefunc)) {

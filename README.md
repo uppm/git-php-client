@@ -1,8 +1,9 @@
-<?php
-require "Git.php";
+# UPPM Git Client
+```bash
+php uppm install gitclient
+```
 
-use modules\gitclient\Git;
-
+```php
 $git = new Git();
 
 $git->changeDirectory(".");
@@ -11,3 +12,4 @@ $git->setRemote("origin");
 $git->add(".");
 $git->commit("Hello, this push has been sent by GitPHPClient by UPPM");
 $git->push("master");
+```
